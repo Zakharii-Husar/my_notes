@@ -1,5 +1,33 @@
 # React Rendering Strategies: Mental Model (HTML/JS/CSS + Hydration)
 
+## When to Care About the Buckets (Practical Guide)
+
+**You don't need to obsess over them day-to-day**, but keep buckets in mind: Next.js "handles it for you" based on your code choices (data fetching, caching, cookies/auth, client components). Small choices can quietly push routes into different buckets.
+
+### When You Can Mostly Ignore It
+For simple sites (portfolio/blog/marketing, mostly static CMS content, little personalization):
+- Treat as **SSG/ISR by default**
+- Sprinkle Client Components for interactivity
+- You'll be fine without thinking about buckets.
+
+### When You Must Think About It
+Care about buckets when you need:
+- **SEO/social previews**: Content/metadata must be server-generated (Server Components/Next metadata), not client-only JS
+- **Performance & cost**: SSR-every-request can be slower/more expensive than cached/static
+- **Freshness**: CMS updates instantly (SSR), every minute (ISR revalidate), or only on redeploy (SSG)?
+- **Personalization**: Cookies/auth/user data usually means SSR territory (or keep personalization client-side)
+
+### Next.js Rule-of-Thumb (3 Questions Per Route)
+1. **Is the page public and should it rank?** Yes → ensure content + metadata are server-generated
+2. **Does the content change often?** Rarely → SSG | Sometimes → ISR (revalidate) | Always/per-user → SSR
+3. **Is it personalized per user?** Yes → SSR (or keep personalization client-side while leaving core content static)
+
+### Why Buckets Still Help
+Even with Next.js defaults, buckets are your "debug model":
+- "Why is this page slow?" → accidentally became SSR
+- "Why isn't my CMS update showing?" → SSG with no revalidate
+- "Why is SEO text missing?" → client-only fetching
+
 ## Quick Summary
 
 **CSR:** browser creates the HTML.
@@ -38,7 +66,9 @@ JS modules + CSS
         ▼
 STATIC ASSETS:
 
-- JS bundles (include React runtime + your client code when needed)
+- JS bundles (include React runtime + your client code when needed). React is still React in the browser: JSX/TS transpiled to JS, but bundle includes React runtime implementing components, hooks, reconciliation, hydration, and event system.
+
+React runtime size is usually okay: minified + compressed (gzip/brotli), tree-shaking removes unused exports, code-splitting loads only needed JS per route. Next.js App Router reduces bundle: Server Components ship no client JS, only Client Components add to browser bundle.
 - CSS files
 - images/fonts/etc
 
@@ -63,7 +93,7 @@ Request → [HTML shell] → download JS/CSS → React builds UI → interactive
 **SEO outcome:**
 
 - Google can index (often), but can be slower/less reliable for edge cases
-- Many crawlers/social previews may see almost nothing
+- Many crawlers/OG (Open Graph) social previews may see almost nothing
 - Use it when: app-like pages behind login, dashboards, internal tools
 - Big SEO footgun: fetching your actual page content only on the client.
 
@@ -115,7 +145,7 @@ Request → server renders HTML → [HTML content shown] → download JS/CSS →
 
 **Cons:**
 
-- Higher server cost/complexity (rendering per request unless heavily cached)
+- Higher server cost/complexity (rendering per request unless heavily cached). SSR is viable because you often don't render for every request: most served from cache layers (CDN/edge HTML caching, data caching in memory/platform/framework caches). Redis optional for small sites.
 - Slower TTFB possible compared to pure static (depends on server + data fetching)
 - More moving parts (caching, load spikes, cold starts if serverless)
 - Still pays hydration cost in the browser for interactive parts
@@ -206,7 +236,7 @@ Build → HTML generated → Request → [cached HTML shown]
 **Hydration process:** When HTML comes from the server (SSR/SSG/ISR), React runs in the browser to "activate" the static HTML by:
 
 1. Rebuilding its internal UI model (React tree)
-2. Walking the existing DOM and matching nodes by structure/order (tags, nesting, key text/attributes)
+2. Walking the existing DOM and matching nodes by structure/order (tags, nesting, key text/attributes). DOM nodes already exist: after HTML arrives, browser parses it into DOM tree (Element/Text nodes) before React runs. Visible in DevTools Elements; `document.querySelector()` returns these pre-existing nodes.
 3. Attaching event handlers and component state to make the UI interactive
 
 **Important:** Hydration is pure CPU work, not a network operation. It happens after the HTML and JS are already loaded. The network part is just downloading the JS bundle initially (or fetching it from cache).
@@ -222,3 +252,38 @@ Build → HTML generated → Request → [cached HTML shown]
 If tags/text/structure differ (e.g. Date.now(), Math.random(), locale differences, data mismatch), React can't safely adopt the DOM.
 
 It falls back to client rendering for that subtree: it patches small differences (text/attributes) or replaces larger mismatching parts so the real DOM matches what the client render expects, then it attaches the same delegated handlers + state as above.
+
+---
+
+### Next.js Specifics
+
+**CMS data fetching (SSG vs SSR):**
+- SSG: CMS fetch during build (or ISR regeneration), HTML cached as static. ISR refreshes static pages post-deploy.
+- SSR: CMS fetch at request time (unless cached).
+- Next.js App Router: fetch() responses not cached by default, but HTML can be pre-rendered/cached. Opt into data caching with `{ cache: 'force-cache' }` or `{ next: { revalidate: N } }`.
+
+**Next.js choosing SSG vs SSR:**
+- App Router uses heuristics based on API usage.
+- `dynamic = 'auto'` (default): cache as much as possible without blocking dynamic behavior.
+- Dynamic APIs (cookies/headers/search params) or uncached fetching (`cache: 'no-store'`) → dynamic/SSR behavior.
+- Cacheable data → SSG/ISR behavior (pre-render + cached output).
+- Override with route config (dynamic, revalidate, fetchCache).
+
+**React vs Next.js differences:**
+- React alone: naturally CSR; wire own server/build pipeline for SSR/SSG/ISR using React's server rendering + hydrateRoot.
+- Next.js: first-class SSR/SSG/ISR features + routing, bundling, deployment defaults.
+- Next.js adds Server Components + RSC payload; hydrates Client Components for interactivity.
+- Next.js has built-in caching (request memoization, data cache, full route cache, router cache) so "SSR" often isn't from scratch.
+
+**Build vs Render clarification:**
+- Build (compile/bundle): TS/JSX → JS, bundle → optimized JS/CSS/assets. Always needed for all buckets.
+- Render (generate HTML): React running on server to produce HTML. Needed for SSR/SSG/ISR.
+- SSG: render-to-HTML at build time → write HTML files.
+- SSR: render-to-HTML at request time → send HTML response.
+- Same rendering mechanism, different schedule.
+
+---
+
+### Batching
+
+**Batching:** React groups multiple state updates into a single render pass to avoid unnecessary re-renders and DOM work.
