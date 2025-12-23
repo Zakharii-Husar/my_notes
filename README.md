@@ -6,9 +6,6 @@ This repository is dedicated to learning and documenting key concepts in compute
 
 Notes are organized by topic/domain:
 
-- **`Caching/`** - Caching concepts and strategies
-- **`JS/`** - JavaScript-specific topics
-- **`SEO/`** - Search Engine Optimization concepts
+- **`front_end/`** - Frontend development topics (JavaScript, React, etc.)
 
 Each directory contains markdown files with detailed notes on specific topics within that domain.
-
