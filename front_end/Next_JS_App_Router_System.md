@@ -1,37 +1,42 @@
 # Next.js App Router: Complete File & Routing System
 
 ## Core Concept
+
 - **Folder names = URL segments**
 - **`page.tsx` = the page component for that URL**
 - **Route organization**: Nest folders, each can have its own `page.tsx`
 
 ## Routing Files Overview
+
 Next.js App Router uses special files in the `app/` directory:
 
-| File | Extension | Purpose |
-|------|-----------|---------|
-| `layout` | `.js .jsx .tsx` | Shared UI (header, nav, footer) for route segments |
-| `page` | `.js .jsx .tsx` | Page component - defines the actual route |
-| `loading` | `.js .jsx .tsx` | Loading UI/skeletons |
-| `not-found` | `.js .jsx .tsx` | 404 UI for undefined routes |
-| `error` | `.js .jsx .tsx` | Error boundary for route segments |
-| `global-error` | `.js .jsx .tsx` | Global error UI for entire application |
-| `route` | `.js .ts` | API endpoints |
-| `template` | `.js .jsx .tsx` | Re-rendered layout (unlike layout, re-mounts on navigation) |
-| `default` | `.js .jsx .tsx` | Fallback page for parallel routes |
+| File             | Extension         | Purpose                                                     |
+| ---------------- | ----------------- | ----------------------------------------------------------- |
+| `layout`       | `.js .jsx .tsx` | Shared UI (header, nav, footer) for route segments          |
+| `page`         | `.js .jsx .tsx` | Page component - defines the actual route                   |
+| `loading`      | `.js .jsx .tsx` | Loading UI/skeletons                                        |
+| `not-found`    | `.js .jsx .tsx` | 404 UI for undefined routes                                 |
+| `error`        | `.js .jsx .tsx` | Error boundary for route segments                           |
+| `global-error` | `.js .jsx .tsx` | Global error UI for entire application                      |
+| `route`        | `.js .ts`       | API endpoints                                               |
+| `template`     | `.js .jsx .tsx` | Re-rendered layout (unlike layout, re-mounts on navigation) |
+| `default`      | `.js .jsx .tsx` | Fallback page for parallel routes                           |
 
 ## File Location & Scope
 
 ### Where to Place Special Files
+
 **Special files like `loading.tsx`, `not-found.tsx`, `error.tsx`, etc. are placed in the SAME directory as `page.tsx`.**
 
 They apply to:
+
 - **That specific route segment** and all its child routes
 - **Nested routes inherit** from parent directories unless overridden
 
 ### Examples:
 
 **Route-specific loading & error handling**:
+
 ```
 app/
   dashboard/
@@ -43,6 +48,7 @@ app/
 ```
 
 **Override in child routes**:
+
 ```
 app/
   blog/
@@ -64,12 +70,14 @@ export default function NotFound() {
 ```
 
 **Global 404 (root level)**:
+
 ```
 app/
   not-found.tsx     # Global 404 for entire app
 ```
 
 **Import in route-specific files**:
+
 ```tsx
 // app/blog/not-found.tsx
 import NotFound from '@/components/NotFound';
@@ -80,6 +88,7 @@ export default function BlogNotFound() {
 ```
 
 **Or create custom per-route**:
+
 ```tsx
 // app/admin/not-found.tsx
 export default function AdminNotFound() {
@@ -88,6 +97,7 @@ export default function AdminNotFound() {
 ```
 
 ### Inheritance Rules
+
 - **Layouts**: Inherited by child routes
 - **Loading/Error/Not-found**: Can be overridden in child directories
 - **Global-error**: Only at root level for entire app
@@ -100,23 +110,28 @@ export default function AdminNotFound() {
 ### 1. Basic Routes
 
 **Root route (`/`)**:
+
 ```
 app/
   page.tsx
 ```
+
 ➡️ `http://localhost:3000/`
 
 **Static route (`/about`)**:
+
 ```
 app/
   about/
     page.tsx
 ```
+
 ➡️ `http://localhost:3000/about`
 
 ### 2. Nested Routes
 
 **Multiple levels (`/dashboard/settings`)**:
+
 ```
 app/
   dashboard/
@@ -124,20 +139,24 @@ app/
     settings/
       page.tsx      # → /dashboard/settings
 ```
+
 ➡️ `/dashboard` and `/dashboard/settings`
 
 ### 3. Dynamic Routes
 
 **Single dynamic segment (`/blog/[slug]`)**:
+
 ```
 app/
   blog/
     [slug]/
       page.tsx
 ```
+
 ➡️ `/blog/anything-here`, `/blog/my-post`, etc.
 
 Access params in `page.tsx`:
+
 ```tsx
 export default function Page({ params }: { params: { slug: string } }) {
   return <div>Post: {params.slug}</div>;
@@ -145,6 +164,7 @@ export default function Page({ params }: { params: { slug: string } }) {
 ```
 
 **Multiple dynamic params (`/shop/[category]/[productId]`)**:
+
 ```
 app/
   shop/
@@ -152,31 +172,39 @@ app/
       [productId]/
         page.tsx
 ```
+
 ➡️ `/shop/shoes/123`, `/shop/electronics/456`
 
 ### 4. Catch-All Routes
 
 **Catch-all (`/docs/[...slug]`)**:
+
 ```
 app/
   docs/
     [...slug]/
       page.tsx
 ```
+
 ➡️ `/docs/a`, `/docs/a/b`, `/docs/a/b/c`
 
 **Optional catch-all (`/docs/[[...slug]]`)**:
+
 ```
 app/
   docs/
     [[...slug]]/
       page.tsx
 ```
+
 ➡️ `/docs`, `/docs/a`, `/docs/a/b/c`
+
+**Key difference**: `[...slug]` requires ≥1 segments (won't match `/docs`), `[[...slug]]` allows 0 segments (will match `/docs`)
 
 ### 5. Route Groups (Organization Only)
 
 **Group routes without affecting URL**:
+
 ```
 app/
   (marketing)/
@@ -186,17 +214,20 @@ app/
     dashboard/
       page.tsx      # → /dashboard
 ```
+
 ➡️ `/pricing` and `/dashboard` (no `(marketing)` or `(app)` in URLs)
 
 ### 6. API Routes
 
 **API endpoints with `route.ts`**:
+
 ```
 app/
   api/
     health/
       route.ts       # → /api/health
 ```
+
 ```ts
 // route.ts
 export async function GET() {
@@ -209,29 +240,41 @@ export async function GET() {
 ## Quick Reference
 
 ### Want a page at `/x/y`?
+
 Create: `app/x/y/page.tsx`
 
 ### Need dynamic segments?
+
 Use: `app/x/[id]/page.tsx`
 
 ### Multiple dynamics?
+
 Use: `app/shop/[category]/[productId]/page.tsx`
 
 ### Catch-all paths?
+
 Use: `app/docs/[...slug]/page.tsx`
 
+(doesn't catch `app/docs`)
+
 ### Optional catch-all?
+
 Use: `app/docs/[[...slug]]/page.tsx`
 
+(Catches `app/docs` as well)
+
 ### API endpoint?
+
 Create: `app/api/endpoint/route.ts`
 
 ### Organize without URL impact?
+
 Use: `app/(group)/route/page.tsx`
 
 ---
 
 ## Important Notes
+
 - You generally don't put `page.tsx` and `route.ts` in the same folder for the same path
 - Folder structure directly maps to URL structure
 - Dynamic segments use square brackets: `[param]`
@@ -306,6 +349,7 @@ app/dashboard/
 **Intercepted routes** intercept another route and render it inside the current layout (modal/overlay routing).
 
 **Patterns**:
+
 - **(.)folder**: Intercept same level
 - **(..)folder**: Intercept parent level
 - **(..)(..)folder**: Intercept two levels up
@@ -329,6 +373,7 @@ app/
 ### Metadata File Conventions
 
 **App Icons**:
+
 ```
 app/
   favicon.ico                    # Favicon file
@@ -339,6 +384,7 @@ app/
 ```
 
 **Social Preview Images**:
+
 ```
 app/
   opengraph-image.jpg            # Open Graph image (static)
@@ -348,6 +394,7 @@ app/
 ```
 
 **SEO Files**:
+
 ```
 app/
   sitemap.xml                    # Sitemap file (static)
@@ -361,6 +408,7 @@ app/
 ## Complete Route Analysis Example
 
 Given this `app/` structure:
+
 ```
 app/
   layout.tsx
@@ -404,6 +452,7 @@ app/
 ```
 
 **Public routes**:
+
 - `/` (has page.tsx)
 - `/about` (has page.tsx, group omitted)
 - `/pricing` (has page.tsx, group omitted)
@@ -413,13 +462,16 @@ app/
 - `/blog/[slug]` (has page.tsx)
 
 **Not routable**:
+
 - `_components/`, `_lib/` folders
 - `@sidebar/`, `@main/` slots (not part of URL)
 
 **Layouts wrap**:
+
 - Root `layout.tsx` wraps everything
 - `dashboard/layout.tsx` wraps `/dashboard/*`
 - `blog/layout.tsx` wraps `/blog/*`
 
 **Intercepted route**:
+
 - `authors/(..)(..)items/[id]/page.tsx` intercepts from two levels up
