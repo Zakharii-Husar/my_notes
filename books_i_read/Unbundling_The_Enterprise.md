@@ -62,6 +62,7 @@
 **Key Insight:** Transition from concave to convex optionality by unbundling monolithic applications into modular APIs, allowing rapid experimentation and adaptation in uncertain environments.
 
 **Examples from Chapter:**
+
 - Amazon Web Services: Built platform by exposing internal capabilities as APIs
 - Taleb's antifragility concepts applied to business design
 - Platform approach vs. product approach (Google vs. Amazon)
@@ -104,10 +105,11 @@
 - **Continuous Experimentation:** Design systems for ongoing A/B testing, feature flags, and rapid iteration cycles
 - **Economics of Feedback Loops:** Cost-benefit analysis showing that fast feedback reduces waste and accelerates learning
 - **Four Feedback Mechanisms:** Data analytics, user feedback, performance monitoring, and controlled experimentation
-- **Life Cycle Model:** Test → Learn → Refine → Scale (iterative experimentation framework)
+- **Life Cycle Model for Digital Experiments:** Envisioning → Planning → Execution → Evaluation → Learning → Adapting
 - **Prioritizing Digital Systems of Work:** Focus on high-impact feedback loops that connect business outcomes to technical execution
 
 **Practical Implementation:**
+
 - **Automated Testing Pipelines:** Continuous integration/delivery (CI/CD) creates tight feedback between code changes and production impact
 - **Feature Flags:** Enable/disable features without redeployment to test hypotheses safely
 - **A/B Testing Infrastructure:** Measure user behavior changes in real-time to validate business decisions
@@ -115,17 +117,44 @@
 - **Evolutionary Scaling:** Start small experiments, prove concepts, then scale successful patterns using DevOps tools
 
 **Key Examples from Chapter:**
+
 - **Penicillin Discovery ($10M Accident):** Unexpected innovation through systematic observation and iteration
 - **Amazon's Customer-Centricity:** "Earth's most customer-centric company" through continuous feedback loops
 - **DevOps Scaling:** "Scaled DevOps Methodologies and Tools" enable ecosystems of experiments
 - **Learning Organizations:** Peter Senge's systems thinking applied to digital transformation
 
 **Business Impact:**
+
 - Reduced time-to-market through automated deployment pipelines
 - Data-driven decision making replacing intuition-based planning
 - Lower failure costs through small, frequent experiments vs. big-bang releases
 - Continuous optimization creates sustainable competitive advantage
 
 ### PART II SUCCESS STRATEGIES
+
+#### Chapter 6 Strategies of Success #1: Exchange Optimization
+
+- **Core Strategy:** Organizations use OOOps methodology (Optionality + Opportunity + Optimization) to transform linear, isolated business models into interconnected digital ecosystems
+- **APIs as Business Lubricants:** APIs function not merely as technical connection points between systems, but as lubricants enabling smooth integration of diverse business models
+- **The Problem: Traditional Cost/Revenue Center Silos:**
+  - Most business leaders classify functions as either **Cost Centers** (IT, Support, HR) or **Revenue Centers** (Sales, Product, Marketing)
+  - This reductive model creates problematic inter-team conflicts and risk transfer downstream
+  - Upstream teams pass risk to downstream teams that lack decision-making authority to mitigate or avoid it
+- **The Solution: Federated Operations Model:**
+  - Embed operational roles within delivery/product teams (DevOps, RevOps, FinOps, etc.)
+  - "Ops" suffix trend extends beyond technical disciplines to integrate operational responsibilities across business functions
+  - **Amazon's "You Build It — You Run It":** Philosophy that accelerates adoption - giving developers operational responsibilities greatly enhances service quality from both customer and technology perspectives
+  - Aligns with Amazon's cornerstone culture: feedback loops
+- **The Challenge: Finding Balance in Dynamic Markets:**
+  - Extremely challenging to find balance between different activities in constantly shifting market environments
+  - Requires fusion of departments (like DevOps) to share responsibilities rather than maintain rigid boundaries
+- **Key Insight:** Exchange Optimization uses APIs and federated operations to optimize value exchanges between traditionally siloed functions, enabling organizations to adapt more effectively to market volatility while reducing inter-team conflict
+
+#### Chapter 7 Strategies of Success #2: Distributed Innovation
+
+#### Chapter 8 Strategies of Success #3: Capability Capitalization
+
+#### Chapter 9 Strategies of Success #4: Value Aggregation
+
 
 ### PART III PRACTICAL CONSIDERATIONS TO FINDING DIGITAL STRATEGIES
