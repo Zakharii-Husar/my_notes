@@ -148,7 +148,14 @@
 - **The Challenge: Finding Balance in Dynamic Markets:**
   - Extremely challenging to find balance between different activities in constantly shifting market environments
   - Requires fusion of departments (like DevOps) to share responsibilities rather than maintain rigid boundaries
-- **Key Insight:** Exchange Optimization uses APIs and federated operations to optimize value exchanges between traditionally siloed functions, enabling organizations to adapt more effectively to market volatility while reducing inter-team conflict
+- **Key Insight:** Exchange Optimization uses APIs and federated operations to optimize value exchanges between traditionally siloed functions, enabling organizations to adapt to market volatility while reducing inter-team conflict
+- **Cox Automotive Case Study:**
+  - **Transformation:** Evolved from traditional automotive services company to digital media and technology enterprise
+  - **Omnichannel Digital Platform:** Integrated e-commerce across multiple channels (Autotrader, Kelley Blue Book) with seamless financing, trade-in valuations, and digital contracting
+  - **Breaking Down Silos:** Connected online and offline experiences, optimizing value exchanges between traditionally separate functions (sales, marketing, operations)
+  - **Mobility Solutions Group:** Formed to address shift from vehicle ownership to usage, demonstrating adaptation to market volatility
+  - **Digital Media Integration:** Partnered with Roku to measure TV streaming impact on automotive consumer journey, showing evolution toward internet media company model
+  - **Practical Application:** Demonstrates how Exchange Optimization enables organizations to transform business models by using APIs and federated operations to integrate diverse capabilities
 
 #### Chapter 7 Strategies of Success #2: Distributed Innovation
 
