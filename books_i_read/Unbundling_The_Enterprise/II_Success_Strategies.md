@@ -43,6 +43,20 @@
     - **Optimization:** build “sense and respond” loops across the ecosystem. **[BOOK]**
   - **Unexpected tech adoption:** more unbundling + feedback can lead to adopting technologies the org didn’t predict. **[BOOK] [VERIFY]**
 
+Coca cola was enbling customer driven R&D with Freestyle fountains, where people could mix/customize their drinks the way they wanted. They could create new bevarages. In addition coca cola connected the fountain machines to the web to collecy more data about consumption and customization, which improved operational efficiency and informed coca cola's development plans. In 2018 Coca-Cola created smartphone apps for better customization, making orders, reward programs etc. Which enabled even bidirectional flow between the  company and consumers. By doing this Coca-Cola crowdsourced some of the research for development and research of their products.
+
+##### Consumer-Driven R&D with Freestyle Fountains
+
+- **Core idea (setup from the figures):** Freestyle-style customization turns dispensing into a feedback-rich system: consumers create variation; Coca-Cola captures anonymous beverage data; the ecosystem supports rapid learning. **[BOOK EXAMPLE]** 
+- **OOOps lens (kept tight):**
+  - **Optionality:** the platform creates many possible combinations to learn from. **[BOOK]**
+  - **Optimization:** data + app-style loops improve “sense and respond.” **[BOOK]** 
+
+##### Digital Transformation Takes Hold at Anderson Holdings
+
+- **Value exchanges after unbundling:** Unbundling yields measurable currencies like **time savings** (onboarding/monthly close), **reduced risk** (fewer errors), **services** (monthly close/onboarding), **reach** (engaging UX), and **data** (financial info) between Anderson HQ/financial controllers and subsidiaries. **[BOOK EXAMPLE]**
+- **Takeaway:** Distributed innovation isn’t only “external devs”—i t can also come from modernizing internal workflows so business users can move faster with lower risk. **[BOOK]**
+
 #### Chapter 8 Strategies of Success #3: Capability Capitalization
 
 #### Chapter 9 Strategies of Success #4: Value Aggregation
