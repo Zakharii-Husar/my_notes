@@ -157,6 +157,26 @@
   - **Digital Media Integration:** Partnered with Roku to measure TV streaming impact on automotive consumer journey, showing evolution toward internet media company model
   - **Practical Application:** Demonstrates how Exchange Optimization enables organizations to transform business models by using APIs and federated operations to integrate diverse capabilities
 
+**Design with Disruption in Mind:**
+
+- **Modularity vs Speed Tradeoff:**
+  - Sacrificing modularity can deliver products faster in short term, but creates technical debt and reduces long-term adaptability
+  - Modular design enhances flexibility and maintainability but may slow initial development
+  - Balance is crucial: modular architecture can accelerate development cycles by up to 40% when done right, enabling parallel workstreams
+- **Legacy Model: Business/IT Separation:**
+  - **Traditional Enterprise Model:** Business owns the "what" (requirements, features, value proposition) while IT owns the "how" (implementation, technology, execution)
+  - **Problem:** Developers are disconnected from value production - they don't see or understand the business value of what they're building
+  - **Solution:** Place developers as close as possible to value production so they can see and know the value of their work
+- **Evolution of Business-IT Collaboration Models:**
+  - **Traditional IT Model (IT as Cost Center):** Business and IT operate in silos with clear separation of concerns - Business owns "what", IT owns "how"
+  - **Stream-Aligned Model (Fusion Model):** Business and IT collaborate to form a stream of work - teams aligned to a continuous flow of value delivery, reducing centralization in business model/management
+  - **Business-Centric Model (APIs as Value Creation):** Business and IT combine to create "API Product Teams" - APIs treated as products that create value, not just technical infrastructure
+- **The Spectrum (from Cost Center to Value Creation):**
+  - **Left Side (Traditional IT Model):** IT viewed as Cost Center - centralized, siloed, Business/IT separation
+  - **Middle (Stream-Aligned Model):** Balanced collaboration on value streams - fusion of departments, shared responsibilities
+  - **Right Side (Business-Centric Model):** APIs as Value Creation - distributed ownership, teams understand business value
+- **Key Principle:** Reducing centralization in business model/management - moving toward distributed, collaborative models where teams have ownership and visibility into value creation, placing developers close to value production
+
 #### Chapter 7 Strategies of Success #2: Distributed Innovation
 
 #### Chapter 8 Strategies of Success #3: Capability Capitalization
