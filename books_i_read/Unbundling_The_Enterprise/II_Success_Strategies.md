@@ -47,10 +47,10 @@ Coca cola was enbling customer driven R&D with Freestyle fountains, where people
 
 ##### Consumer-Driven R&D with Freestyle Fountains
 
-- **Core idea (setup from the figures):** Freestyle-style customization turns dispensing into a feedback-rich system: consumers create variation; Coca-Cola captures anonymous beverage data; the ecosystem supports rapid learning. **[BOOK EXAMPLE]** 
+- **Core idea (setup from the figures):** Freestyle-style customization turns dispensing into a feedback-rich system: consumers create variation; Coca-Cola captures anonymous beverage data; the ecosystem supports rapid learning. **[BOOK EXAMPLE]**
 - **OOOps lens (kept tight):**
   - **Optionality:** the platform creates many possible combinations to learn from. **[BOOK]**
-  - **Optimization:** data + app-style loops improve “sense and respond.” **[BOOK]** 
+  - **Optimization:** data + app-style loops improve “sense and respond.” **[BOOK]**
 
 ##### Digital Transformation Takes Hold at Anderson Holdings
 
@@ -58,5 +58,21 @@ Coca cola was enbling customer driven R&D with Freestyle fountains, where people
 - **Takeaway:** Distributed innovation isn’t only “external devs”—i t can also come from modernizing internal workflows so business users can move faster with lower risk. **[BOOK]**
 
 #### Chapter 8 Strategies of Success #3: Capability Capitalization
+
+- **Core Strategy:** Turn internal business capabilities into reusable, monetizable offerings by **unbundling** them from their original context and **rebundling** them into new products/services/business units. **[BOOK]**
+- **What “capability capitalization” means:** Repurpose underutilized assets/capabilities (data, workflows, infrastructure, expertise) into offerings that create measurable value beyond their original use. **[BOOK]**
+- **“Less is more” theme:** Focus on a small set of capabilities you can productize well (clear consumer, clear outcomes), rather than trying to platform-everything at once. **[BOOK]**
+- **Execution mantra:** “Think big, start small, learn fast, go far” — sequence capability releases so each step reduces risk and increases learning. **[BOOK]**
+- **How it connects to OOOps (short):**
+
+  - **Optionality:** capability building blocks (often API-enabled) increase what you can recombine later. **[BOOK]**
+  - **Opportunity:** value dynamics clarifies *who benefits* and *why they’d adopt/pay*. **[BOOK]**
+  - **Optimization:** feedback loops guide iteration, adoption, and operational scaling. **[BOOK]**
+- **What it looks like in practice (high-level examples):**
+
+  - **Amazon → AWS:** internal infrastructure capabilities become external services that others pay to use. **[BOOK EXAMPLE]**
+  - **Slack → ecosystem:** product expands by enabling third-party builders/integrations to extend its value. **[BOOK EXAMPLE]**
+  - **Capital One-like pattern:** large enterprises can package internal platforms/tools into external-facing software products. **[VERIFY]** *(include only if your chapter explicitly mentions it)*
+- **Practical prompt:** “What capabilities do we already have that others would value if we packaged them with the right interface, reliability, and incentives?” **[BOOK]**
 
 #### Chapter 9 Strategies of Success #4: Value Aggregation
