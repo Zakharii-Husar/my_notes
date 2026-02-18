@@ -45,18 +45,38 @@ The gap between CPU speed and main memory (RAM) speed is enormous. A CPU can exe
 
 ### The memory hierarchy
 
-| Level      | Typical Size | Latency       | Analogy           |
-|------------|-------------|---------------|-------------------|
-| Registers  | ~1 KB       | ~0.3 ns       | Your hands        |
-| L1 Cache   | 32-64 KB    | ~1 ns         | Your desk         |
-| L2 Cache   | 256 KB-1 MB | ~4-7 ns       | Your bookshelf    |
-| L3 Cache   | 4-64 MB     | ~10-30 ns     | The filing cabinet|
-| RAM        | 8-512 GB    | ~80-100 ns    | The library       |
-| SSD        | 256 GB-4 TB | ~10-100 μs    | Another building  |
-| HDD        | 1-20 TB     | ~5-10 ms      | Another city      |
-| Network    | Unlimited   | ~0.5-150 ms   | Another country   |
+| Level     | Typical Size | Latency     | Analogy            |
+| --------- | ------------ | ----------- | ------------------ |
+| Registers | ~1 KB        | ~0.3 ns     | Your hands         |
+| L1 Cache  | 32-64 KB     | ~1 ns       | Your desk          |
+| L2 Cache  | 256 KB-1 MB  | ~4-7 ns     | Your bookshelf     |
+| L3 Cache  | 4-64 MB      | ~10-30 ns   | The filing cabinet |
+| RAM       | 8-512 GB     | ~80-100 ns  | The library        |
+| SSD       | 256 GB-4 TB  | ~10-100 μs | Another building   |
+| HDD       | 1-20 TB      | ~5-10 ms    | Another city       |
+| Network   | Unlimited    | ~0.5-150 ms | Another country    |
 
 Each level is roughly 3-10x slower than the one above. The CPU doesn't fetch individual bytes — it fetches **cache lines** (typically 64 bytes). When you access one byte, the surrounding 63 come along for free.
+
+### How caches work (automatic, not manual)
+
+**Important**: CPU caches are **hardware-managed and completely transparent**. You don't write code to "use the cache" — the CPU automatically uses it whenever you access memory. Whether you're writing assembly, C, Python, or JavaScript, every memory access goes through the cache hierarchy automatically.
+
+When you write `mov eax, [memory_address]` in assembly or `x = arr[i]` in Python:
+
+1. CPU checks L1 cache first (~1 ns)
+2. If miss, checks L2 cache (~4 ns)
+3. If miss, checks L3 cache (~10 ns)
+4. If miss, fetches from RAM (~100 ns) and stores a copy in cache
+
+**You can't bypass caches** — they're part of the CPU's memory subsystem. What you *can* control is whether your code is **cache-friendly** (exploits locality) or **cache-hostile** (random access patterns).
+
+**Why assembly might be slower than Python**: It's not because you "didn't use caching" — caches work automatically. It's because:
+
+- Python's runtime uses cache-friendly data structures (contiguous arrays, efficient hash tables)
+- Python libraries are highly optimized and exploit spatial/temporal locality
+- Your assembly code might have cache-hostile patterns (random memory access, pointer chasing, non-sequential data structures)
+- Modern Python interpreters have optimizations (object pooling, JIT compilation) that improve cache behavior
 
 ### Locality
 
@@ -155,21 +175,21 @@ One of the most important skills in systems design is knowing the rough cost of 
 
 ### The numbers you should know
 
-| Operation                        | Time         |
-|----------------------------------|-------------|
-| L1 cache reference               | 1 ns        |
-| L2 cache reference               | 4 ns        |
-| Branch mispredict                | 5 ns        |
-| Mutex lock/unlock                | 25 ns       |
-| Main memory reference            | 100 ns      |
-| Compress 1KB with Snappy         | 3 μs        |
-| Read 1 MB sequentially from RAM  | 3-10 μs     |
-| SSD random read (4KB)            | 16 μs       |
-| Read 1 MB sequentially from SSD  | 50-200 μs   |
-| Round trip within datacenter     | 500 μs      |
-| Read 1 MB sequentially from HDD  | 2-5 ms      |
-| Disk seek (HDD)                  | 5-10 ms     |
-| CA to Netherlands round trip     | 150 ms      |
+| Operation                       | Time       |
+| ------------------------------- | ---------- |
+| L1 cache reference              | 1 ns       |
+| L2 cache reference              | 4 ns       |
+| Branch mispredict               | 5 ns       |
+| Mutex lock/unlock               | 25 ns      |
+| Main memory reference           | 100 ns     |
+| Compress 1KB with Snappy        | 3 μs      |
+| Read 1 MB sequentially from RAM | 3-10 μs   |
+| SSD random read (4KB)           | 16 μs     |
+| Read 1 MB sequentially from SSD | 50-200 μs |
+| Round trip within datacenter    | 500 μs    |
+| Read 1 MB sequentially from HDD | 2-5 ms     |
+| Disk seek (HDD)                 | 5-10 ms    |
+| CA to Netherlands round trip    | 150 ms     |
 
 *(These are approximate and vary by hardware generation, but the ratios are what matter.)*
 

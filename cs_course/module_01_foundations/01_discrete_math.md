@@ -13,9 +13,9 @@ Logic is how we make precise statements about programs. "If the user is authenti
 ### Core concepts
 
 - **Propositions** — statements that are either true or false. "The server is running" is a proposition. "Close the door" is not.
-- **Logical connectives** — AND (`∧`), OR (`∨`), NOT (`¬`), implication (`→`), biconditional (`↔`)
+- **Logical connectives** — AND (`∧`), OR (`∨`), NOT (`¬`), implication (`→` = "if...then"), biconditional (`↔` = "if and only if")
 - **Implication (`P → Q`)** — "if P then Q." Only false when P is true and Q is false. A crucial subtlety: `false → anything` is true (vacuous truth). This is why an empty `for` loop over zero items "correctly" satisfies any postcondition.
-- **De Morgan's Laws** — `¬(P ∧ Q) ≡ ¬P ∨ ¬Q` and `¬(P ∨ Q) ≡ ¬P ∧ ¬Q`. You use these every time you refactor a conditional:
+- **De Morgan's Laws** — `¬(P ∧ Q) ≡ ¬P ∨ ¬Q` and `¬(P ∨ Q) ≡ ¬P ∧ ¬Q` (`≡` means "is logically equivalent to"). Reads as: "NOT (P AND Q) equals (NOT P) OR (NOT Q)". You use these every time you refactor a conditional:
 
 ```javascript
 // Before: !(isAdmin && isActive)
@@ -26,11 +26,11 @@ if (!user.isAdmin || !user.isActive) {
 ```
 
 - **Predicates** — propositions with variables: `isEven(x)` is true when `x` is even. Predicates turn logic into something you can apply to collections of objects.
-- **Quantifiers** — `∀x` (for all x) and `∃x` (there exists an x). "All users have unique emails" is `∀u1, ∀u2: u1 ≠ u2 → email(u1) ≠ email(u2)`. The negation of "all" is "there exists one that doesn't": `¬(∀x P(x)) ≡ ∃x ¬P(x)`.
+- **Quantifiers** — `∀x` (for all x) and `∃x` (there exists an x). "All users have unique emails" is `∀u1, ∀u2: u1 ≠ u2 → email(u1) ≠ email(u2)` — reads as: "for all user1, for all user2: if user1 `≠` (not equal to) user2, then (`→`) their emails are not equal." The negation of "all" is "there exists one that doesn't": `¬(∀x P(x)) ≡ ∃x ¬P(x)` — reads as: "NOT(for-all-x P(x)) is equivalent to there-exists-an-x where NOT P(x)."
 
 ### Practical application
 
-When you write a database constraint `UNIQUE(email)`, you're encoding `∀u1, ∀u2`. When your test asserts "no item in the list is negative," you're asserting `∀x ∈ list: x ≥ 0`. Thinking in quantifiers helps you spot edge cases — the negation tells you exactly what a counterexample looks like.
+When you write a database constraint `UNIQUE(email)`, you're encoding `∀u1, ∀u2` (for all user1, for all user2...). When your test asserts "no item in the list is negative," you're asserting `∀x ∈ list: x ≥ 0` (`∈` = "in" / "element of"; `≥` = "greater than or equal to") — reads as: "for all x in list, x is greater than or equal to 0." Thinking in quantifiers helps you spot edge cases — the negation tells you exactly what a counterexample looks like.
 
 ---
 
@@ -81,13 +81,13 @@ Sets are the building blocks for modeling data. Database tables are sets of rows
 
 ### Core concepts
 
-- **Basic operations** — union (`A ∪ B`), intersection (`A ∩ B`), difference (`A \ B`), complement (`Ā`)
+- **Basic operations** — union (`A ∪ B` = everything in A or B or both), intersection (`A ∩ B` = only what's in both A and B), difference (`A \ B` = what's in A but not in B), complement (`Ā` = everything NOT in A)
 - **Relations** — a set of ordered pairs. A database table with columns `(user_id, role)` defines a relation between users and roles.
-- **Properties of relations**:
+- **Properties of relations** (`a R b` reads as "a is related to b", where `R` is some relationship):
   - *Reflexive*: every element relates to itself (`a R a`)
   - *Symmetric*: if `a R b` then `b R a` (like "is friends with")
   - *Transitive*: if `a R b` and `b R c` then `a R c` (like "is ancestor of")
-  - *Antisymmetric*: if `a R b` and `b R a` then `a = b` (like "≤")
+  - *Antisymmetric*: if `a R b` and `b R a` then `a = b` (like `≤`, "less than or equal")
 - **Equivalence relations** — reflexive + symmetric + transitive. They partition a set into equivalence classes. Example: "same remainder when divided by 3" partitions integers into three classes: `{..., -3, 0, 3, 6, ...}`, `{..., -2, 1, 4, 7, ...}`, `{..., -1, 2, 5, 8, ...}`.
 - **Functions** — a relation where each input maps to exactly one output. Injective (one-to-one), surjective (onto), bijective (both). Hash functions are not injective (collisions exist). A good encryption function is bijective (reversible).
 
@@ -107,7 +107,7 @@ Combinatorics tells you "how many ways" something can happen. This is essential 
 
 - **Permutations** — ordered arrangements. `n!` ways to arrange `n` items. 10 items = 3,628,800 arrangements. 20 items = ~2.4 × 10¹⁸ (forget brute force).
 - **Combinations** — unordered selections. `C(n, k) = n! / (k!(n-k)!)`. "Choose 3 servers from 10" = `C(10,3)` = 120 ways.
-- **The Pigeonhole Principle** — if you put `n+1` pigeons into `n` holes, at least one hole has ≥ 2 pigeons. Sounds trivial, but it's powerful:
+- **The Pigeonhole Principle** — if you put `n+1` pigeons into `n` holes, at least one hole has `≥` (greater than or equal to) 2 pigeons. Sounds trivial, but it's powerful:
   - If you hash 366 items into 365 buckets, at least one collision is **guaranteed**
   - If a function maps from a larger domain to a smaller codomain, it can't be injective
   - In any group of 13 people, at least 2 share a birth month
@@ -160,8 +160,8 @@ def gcd(a, b):
 ```
 
 - **Primes** — numbers divisible only by 1 and themselves. The **Fundamental Theorem of Arithmetic** says every integer > 1 has a unique prime factorization. RSA encryption relies on the fact that multiplying two large primes is easy, but factoring their product is computationally infeasible.
-- **Modular inverse** — `a⁻¹ mod n` exists iff `gcd(a, n) = 1`. Used in RSA decryption and modular division.
-- **Fermat's Little Theorem** — if `p` is prime and `gcd(a, p) = 1`, then `a^(p-1) ≡ 1 (mod p)`. Basis for primality testing and key generation.
+- **Modular inverse** — `a⁻¹ mod n` (`a⁻¹` = the inverse of a) exists iff (`gcd(a, n) = 1`, i.e. a and n share no common factors). Used in RSA decryption and modular division.
+- **Fermat's Little Theorem** — if `p` is prime and `gcd(a, p) = 1`, then `a^(p-1) ≡ 1 (mod p)` (`≡` here means "is congruent to" — same remainder when divided by p). Basis for primality testing and key generation.
 
 ### Practical application
 
@@ -183,12 +183,17 @@ Hash maps use modular arithmetic for bucket assignment. Cryptographic protocols 
 
 ## Recommended Resources
 
-- **Book**: *Discrete Mathematics and Its Applications* by Kenneth Rosen — the standard textbook; comprehensive reference
-- **Book**: *Mathematics for Computer Science* by Lehman, Leighton, Meyer (MIT OpenCourseWare, free PDF) — excellent and free
-- **Course**: MIT 6.042J Mathematics for Computer Science (OCW) — video lectures matching the free textbook
-- **Interactive**: *Brilliant.org* Discrete Math courses — great for building intuition through problems
-- **Reference**: *Concrete Mathematics* by Graham, Knuth, Patashnik — deeper dive, especially combinatorics and number theory
-- **Practice**: Project Euler (projecteuler.net) — number theory and combinatorics problems that require code
+**Book**: *Discrete Mathematics and Its Applications* by Kenneth Rosen — the standard textbook; comprehensive reference
+
+**Book**: *Mathematics for Computer Science* by Lehman, Leighton, Meyer (MIT OpenCourseWare, free PDF) — excellent and free
+
+**Course**: MIT 6.042J Mathematics for Computer Science (OCW) — video lectures matching the free textbook
+
+**Interactive**: *Brilliant.org* Discrete Math courses — great for building intuition through problems
+
+**Reference**: *Concrete Mathematics* by Graham, Knuth, Patashnik — deeper dive, especially combinatorics and number theory
+
+**Practice**: Project Euler (projecteuler.net) — number theory and combinatorics problems that require code
 
 ---
 
