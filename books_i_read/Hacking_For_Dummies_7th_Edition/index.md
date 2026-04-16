@@ -367,18 +367,18 @@ A medium-severity vulnerability on an internet-facing system with PII may be hig
 
 ## Key Tools Reference
 
-| Tool                 | Category      | Purpose                                             |
-| -------------------- | ------------- | --------------------------------------------------- |
-| **Nmap**             | Network       | Port scanning, service detection, OS fingerprinting |
-| **Nessus / OpenVAS** | Vulnerability | Automated vulnerability scanning                    |
-| **Metasploit**       | Exploitation  | Exploit development and execution framework         |
-| **Burp Suite**       | Web           | Intercepting proxy, web vulnerability scanner       |
-| **OWASP ZAP**        | Web           | Free web app security testing                       |
-| **Wireshark**        | Network       | Packet capture and analysis                         |
-| **John the Ripper**  | Passwords     | Offline password cracking                           |
-| **Hashcat**          | Passwords     | GPU-accelerated password cracking                   |
-| **SQLMap**           | Web/DB        | Automated SQL injection                             |
-| **Nikto**            | Web           | Web server misconfiguration scanner                 |
-| **Aircrack-ng**      | Wireless      | WiFi security auditing suite                        |
-| **Cain & Abel**      | Windows       | Multi-purpose Windows security tool                 |
-| **THC Hydra**        | Passwords     | Online brute-force for network services             |
+| Tool                 | Category      | Purpose                                               |
+| -------------------- | ------------- | ----------------------------------------------------- |
+| **Nmap**             | Network       | Port scanning, service detection, OS fingerprinting   |
+| **Nessus / OpenVAS** | Vulnerability | Automated vulnerability scanning                      |
+| **Metasploit**       | Exploitation  | Exploit development and execution framework           |
+| **Burp Suite**       | Web           | Intercepting proxy, web vulnerability scanner         |
+| **OWASP ZAP**        | Web           | Web app security testing (**Burp Suite** alternative) |
+| **Wireshark**        | Network       | Packet capture and analysis                           |
+| **John the Ripper**  | Passwords     | Offline password cracking                             |
+| **Hashcat**          | Passwords     | GPU-accelerated password cracking                     |
+| **SQLMap**           | Web/DB        | Automated SQL injection                               |
+| **Nikto**            | Web           | Web server misconfiguration scanner                   |
+| **Aircrack-ng**      | Wireless      | WiFi security auditing suite                          |
+| **Cain & Abel**      | Windows       | Multi-purpose Windows security tool                   |
+| **THC Hydra**        | Passwords     | Online brute-force for network services               |
